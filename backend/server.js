@@ -30,3 +30,5 @@ app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
   startNewsSync(); // Start background news synchronization
 });
+
+export default app;
