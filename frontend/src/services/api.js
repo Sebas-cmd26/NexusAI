@@ -1,4 +1,4 @@
-﻿const API_BASE_URL = 'http://localhost:8000/api';
+﻿const API_BASE_URL = 'https://nexusai-production-f537.up.railway.app/api';
 
 /**
  * API Service Layer
@@ -165,3 +165,4 @@ class APIService {
 }
 
 export default APIService;
+
