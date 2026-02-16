@@ -1,14 +1,14 @@
-import React from 'react';
+﻿import React from 'react';
 import { Home, Search, Users, Bell, Bookmark, MessageSquare } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const BottomNav = ({ activeTab, setActiveTab }) => {
   const tabs = [
-    { id: 'feed', icon: Home, label: 'Home' },
+    { id: 'feed', icon: Home, label: 'Inicio' },
     { id: 'chats', icon: MessageSquare, label: 'Chats' },
-    { id: 'groups', icon: Users, label: 'Groups' },
-    { id: 'alerts', icon: Bell, label: 'Alerts' },
-    { id: 'bookmarks', icon: Bookmark, label: 'Saved' },
+    { id: 'groups', icon: Users, label: 'Grupos' },
+    { id: 'alerts', icon: Bell, label: 'Alertas' },
+    { id: 'bookmarks', icon: Bookmark, label: 'Guardados' },
   ];
 
   return (
@@ -43,4 +43,3 @@ const BottomNav = ({ activeTab, setActiveTab }) => {
 };
 
 export default BottomNav;
-

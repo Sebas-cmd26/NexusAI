@@ -12,7 +12,7 @@ const GroupsView = () => {
   const [vaultContent, setVaultContent] = useState([]);
   const [loadingVault, setLoadingVault] = useState(false);
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
-  const [newGroupData, setNewGroupData] = useState({ name: '', description: '', type: 'private' });
+  const [newGroupData, setNewGroupData] = useState({ name: '', description: '', type: 'Privado' });
   const [creating, setCreating] = useState(false);
   const [chatGroup, setChatGroup] = useState(null);
 
@@ -34,7 +34,7 @@ const GroupsView = () => {
 
   const handleCreateGroup = async () => {
     if (!newGroupData.name.trim()) {
-      alert('Please enter a group name');
+      alert('Por favor ingresa un nombre de grupo');
       return;
     }
 
@@ -42,17 +42,17 @@ const GroupsView = () => {
     try {
       await APIService.createGroup(newGroupData);
       setIsCreateModalOpen(false);
-      setNewGroupData({ name: '', description: '', type: 'private' });
+      setNewGroupData({ name: '', description: '', type: 'Privado' });
       await loadGroups();
       // Show success notification
       const successMsg = document.createElement('div');
       successMsg.className = 'fixed top-4 right-4 z-[9999] px-6 py-4 bg-accent-primary text-nexus-black font-black rounded-2xl shadow-lg animate-in slide-in-from-top-4';
-      successMsg.textContent = ' Group created successfully!';
+      successMsg.textContent = ' ¡Grupo creado exitosamente!';
       document.body.appendChild(successMsg);
       setTimeout(() => successMsg.remove(), 3000);
     } catch (error) {
       console.error('Error creating group:', error);
-      alert('Failed to create group. Please try again.');
+      alert('Error al crear grupo. Intenta de nuevo.');
     }
     setCreating(false);
   };
@@ -109,15 +109,15 @@ const GroupsView = () => {
           
           <div className="relative z-10 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
             <div>
-              <h2 className="text-4xl font-black tracking-tight mb-2 nexus-gradient-text">Your Groups</h2>
-              <p className="text-white/60">Collaborate and share intelligence with your network</p>
+              <h2 className="text-4xl font-black tracking-tight mb-2 nexus-gradient-text">Tus Grupos</h2>
+              <p className="text-white/60">Colabora y comparte inteligencia con tu red</p>
             </div>
             <button
               onClick={() => setIsCreateModalOpen(true)}
               className="px-6 py-4 bg-accent-primary hover:bg-accent-primary/90 text-nexus-black font-black uppercase tracking-widest text-xs rounded-2xl transition-all active:scale-95 flex items-center gap-2 shadow-lg shadow-accent-primary/20"
             >
               <Plus className="w-5 h-5" />
-              Create Group
+              Crear Grupo
             </button>
           </div>
         </div>
@@ -137,7 +137,7 @@ const GroupsView = () => {
                 <div className={`h-32 bg-gradient-to-br ${getGroupGradient(idx)} relative overflow-hidden`}>
                   <div className="absolute inset-0 bg-black/20" />
                   <div className="absolute top-4 right-4 px-3 py-1.5 glass rounded-full flex items-center gap-2">
-                    {group.type === 'private' ? (
+                    {group.type === 'Privado' ? (
                       <Lock className="w-3 h-3" />
                     ) : (
                       <Globe className="w-3 h-3" />
@@ -210,20 +210,20 @@ const GroupsView = () => {
             <div className="p-6 bg-accent-primary/10 rounded-full mb-6">
               <Users className="w-16 h-16 text-accent-primary" />
             </div>
-            <h3 className="text-2xl font-black mb-2">No Groups Yet</h3>
-            <p className="text-white/60 mb-6">Create your first group to start collaborating</p>
+            <h3 className="text-2xl font-black mb-2">Aún No Hay Grupos</h3>
+            <p className="text-white/60 mb-6">Crea tu primer grupo para comenzar a colaborar</p>
             <button
               onClick={() => setIsCreateModalOpen(true)}
               className="px-8 py-4 bg-accent-primary hover:bg-accent-primary/90 text-nexus-black font-black uppercase tracking-widest text-xs rounded-2xl transition-all active:scale-95 flex items-center gap-2"
             >
               <Plus className="w-5 h-5" />
-              Create Your First Group
+              CREA TU PRIMER GRUPO
             </button>
           </motion.div>
         )}
       </div>
 
-      {/* Create Group Modal */}
+      {/* Crear Grupo Modal */}
       <Dialog.Root open={isCreateModalOpen} onOpenChange={setIsCreateModalOpen}>
         <AnimatePresence>
           {isCreateModalOpen && (
@@ -244,7 +244,7 @@ const GroupsView = () => {
                   className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-md glass rounded-3xl p-8 z-[101] border border-white/10"
                 >
                   <div className="flex items-center justify-between mb-6">
-                    <Dialog.Title className="text-2xl font-black">Create New Group</Dialog.Title>
+                    <Dialog.Title className="text-2xl font-black">Crear Nuevo Grupo</Dialog.Title>
                     <Dialog.Close asChild>
                       <button className="p-2 glass hover:bg-white/10 rounded-lg transition-colors">
                         <X className="w-5 h-5" />
@@ -255,13 +255,13 @@ const GroupsView = () => {
                   <div className="space-y-4">
                     <div>
                       <label className="block text-sm font-black uppercase tracking-widest text-white/60 mb-2">
-                        Group Name *
+                        Nombre del Grupo *
                       </label>
                       <input
                         type="text"
                         value={newGroupData.name}
                         onChange={(e) => setNewGroupData({ ...newGroupData, name: e.target.value })}
-                        placeholder="Enter group name..."
+                        placeholder="Enter Nombre del Grupo..."
                         className="w-full px-4 py-3 glass rounded-2xl border border-white/10 bg-nexus-dark/50 text-white placeholder-white/30 focus:outline-none focus:border-accent-primary/50 transition-colors"
                       />
                     </div>
@@ -285,24 +285,24 @@ const GroupsView = () => {
                       </label>
                       <div className="flex gap-3">
                         <button
-                          onClick={() => setNewGroupData({ ...newGroupData, type: 'private' })}
+                          onClick={() => setNewGroupData({ ...newGroupData, type: 'Privado' })}
                           className={`flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-2xl font-black uppercase tracking-widest text-xs transition-all ${
-                            newGroupData.type === 'private'
+                            newGroupData.type === 'Privado'
                               ? 'bg-accent-primary text-nexus-black'
                               : 'glass hover:bg-white/10 text-white/60'
                           }`}
                         >
-                          <Lock className="w-4 h-4" /> Private
+                          <Lock className="w-4 h-4" /> Privado
                         </button>
                         <button
-                          onClick={() => setNewGroupData({ ...newGroupData, type: 'public' })}
+                          onClick={() => setNewGroupData({ ...newGroupData, type: 'Público' })}
                           className={`flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-2xl font-black uppercase tracking-widest text-xs transition-all ${
-                            newGroupData.type === 'public'
+                            newGroupData.type === 'Público'
                               ? 'bg-accent-primary text-nexus-black'
                               : 'glass hover:bg-white/10 text-white/60'
                           }`}
                         >
-                          <Globe className="w-4 h-4" /> Public
+                          <Globe className="w-4 h-4" /> Público
                         </button>
                       </div>
                     </div>
@@ -320,7 +320,7 @@ const GroupsView = () => {
                       ) : (
                         <>
                           <Plus className="w-5 h-5" />
-                          Create Group
+                          Crear Grupo
                         </>
                       )}
                     </button>
@@ -404,3 +404,6 @@ const GroupsView = () => {
 };
 
 export default GroupsView;
+
+
+

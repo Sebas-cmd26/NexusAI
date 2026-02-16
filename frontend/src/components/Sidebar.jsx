@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { Home, Search, Users, Bell, Bookmark, ChevronLeft, ChevronRight, Zap, MessageSquare } from 'lucide-react';
 import { motion } from 'framer-motion';
 
@@ -6,11 +6,11 @@ const Sidebar = ({ activeTab, setActiveTab }) => {
   const [isCollapsed, setIsCollapsed] = useState(false);
 
   const tabs = [
-    { id: 'feed', icon: Home, label: 'Feed' },
-    { id: 'chats', icon: MessageSquare, label: 'AI Chats' },
-    { id: 'groups', icon: Users, label: 'Groups' },
-    { id: 'alerts', icon: Bell, label: 'Alerts' },
-    { id: 'bookmarks', icon: Bookmark, label: 'Bookmarks' },
+    { id: 'feed', icon: Home, label: 'Inicio' },
+    { id: 'chats', icon: MessageSquare, label: 'Chats IA' },
+    { id: 'groups', icon: Users, label: 'Grupos' },
+    { id: 'alerts', icon: Bell, label: 'Alertas' },
+    { id: 'bookmarks', icon: Bookmark, label: 'Guardados' },
   ];
 
   return (
@@ -78,3 +78,4 @@ const Sidebar = ({ activeTab, setActiveTab }) => {
 };
 
 export default Sidebar;
+

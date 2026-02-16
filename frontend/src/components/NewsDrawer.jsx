@@ -37,12 +37,12 @@ const NewsDrawer = ({ news, onClose }) => {
       setIsShareModalOpen(false);
       const successMsg = document.createElement('div');
       successMsg.className = 'fixed top-4 right-4 z-[9999] px-6 py-4 bg-accent-primary text-nexus-black font-black rounded-2xl shadow-lg';
-      successMsg.textContent = 'Shared successfully!';
+      successMsg.textContent = '¡Compartido exitosamente!';
       document.body.appendChild(successMsg);
       setTimeout(() => successMsg.remove(), 3000);
     } catch (error) {
       console.error('Error sharing:', error);
-      alert('Failed to share.');
+      alert('Error al compartir.');
     }
   };
 
@@ -117,7 +117,7 @@ const NewsDrawer = ({ news, onClose }) => {
                     <div className="bg-accent-primary/5 border border-accent-primary/10 rounded-[32px] p-8 mb-12">
                       <div className="flex items-center gap-3 mb-6">
                         <Sparkles className="w-5 h-5 text-accent-primary" />
-                        <h4 className="text-xs font-black uppercase">Intelligence Extraction</h4>
+                        <h4 className="text-xs font-black uppercase">Extracción de Inteligencia</h4>
                       </div>
                       <p className="text-lg text-white/80">{news.summary || 'Loading...'}</p>
                     </div>
@@ -128,19 +128,19 @@ const NewsDrawer = ({ news, onClose }) => {
                         rel="noopener noreferrer"
                         className="flex-1 flex items-center justify-center gap-3 bg-accent-primary hover:bg-accent-primary/90 text-nexus-black font-black uppercase tracking-widest text-xs py-5 rounded-[24px] shadow-lg shadow-accent-primary/20 transition-all active:scale-95"
                       >
-                        Read Full Article <ExternalLink className="w-4 h-4" />
+                        Leer Artículo Completo <ExternalLink className="w-4 h-4" />
                       </a>
                       <button 
                         onClick={handleShare}
                         className="flex items-center justify-center gap-3 glass hover:bg-white/10 text-white font-black uppercase tracking-widest text-xs py-5 px-8 rounded-[24px] transition-all active:scale-95"
                       >
-                        <Share2 className="w-4 h-4" /> Share
+                        <Share2 className="w-4 h-4" /> Compartir
                       </button>
                       <button 
                         onClick={handleSummarize}
                         className="flex items-center justify-center gap-3 glass hover:bg-white/10 text-white font-black uppercase tracking-widest text-xs py-5 px-8 rounded-[24px] transition-all active:scale-95 cursor-pointer"
                       >
-                        <Sparkles className="w-4 h-4" /> AI Chat
+                        <Sparkles className="w-4 h-4" /> Chat IA
                       </button>
                       <button 
                         onClick={handleBookmark}
@@ -204,3 +204,4 @@ const NewsDrawer = ({ news, onClose }) => {
 };
 
 export default NewsDrawer;
+

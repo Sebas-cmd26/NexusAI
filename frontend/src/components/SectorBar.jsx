@@ -3,11 +3,11 @@ import { motion } from 'framer-motion';
 
 const SectorBar = ({ activeSector, setActiveSector }) => {
   const sectors = [
-    { id: null, label: 'ALL FRONTIER', color: 'from-white to-white/60' },
-    { id: 'Engineering', label: 'ENGINEERING', color: 'from-accent-primary to-accent-primary/60' },
-    { id: 'Health', label: 'HEALTH', color: 'from-green-400 to-emerald-500' },
-    { id: 'Finance', label: 'FINANCE', color: 'from-yellow-400 to-amber-500' },
-    { id: 'Education', label: 'EDUCATION', color: 'from-purple-400 to-violet-500' },
+    { id: null, label: 'TODO', color: 'from-white to-white/60' },
+    { id: 'Engineering', label: 'INGENIERÍA', color: 'from-accent-primary to-accent-primary/60' },
+    { id: 'Health', label: 'SALUD', color: 'from-green-400 to-emerald-500' },
+    { id: 'Finance', label: 'FINANZAS', color: 'from-yellow-400 to-amber-500' },
+    { id: 'Education', label: 'EDUCACIÓN', color: 'from-purple-400 to-violet-500' },
     { id: 'Legal', label: 'LEGAL', color: 'from-red-400 to-rose-500' },
     { id: 'General', label: 'GENERAL', color: 'from-blue-400 to-cyan-500' },
   ];
@@ -32,7 +32,6 @@ const SectorBar = ({ activeSector, setActiveSector }) => {
                 : 'bg-white/5 text-white/40 hover:bg-white/10 hover:text-white/80'
             }`}
           >
-            {/* Active indicator */}
             {isActive && (
               <motion.div
                 layoutId="activeSector"
@@ -41,14 +40,12 @@ const SectorBar = ({ activeSector, setActiveSector }) => {
               />
             )}
             
-            {/* Glow effect on active */}
             {isActive && (
               <div className={`absolute inset-0 bg-gradient-to-r ${sector.color} opacity-20 blur-xl rounded-2xl`} />
             )}
             
             <span className="relative z-10">{sector.label}</span>
             
-            {/* Active dot */}
             {isActive && (
               <motion.div
                 initial={{ scale: 0 }}

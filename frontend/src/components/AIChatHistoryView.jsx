@@ -18,7 +18,7 @@ const AIChatHistoryView = ({ onBack }) => {
         const lastMessage = messages[messages.length - 1];
         const date = lastMessage ? new Date(lastMessage.timestamp) : new Date();
         
-        let title = `Article Discussion`;
+        let title = `Discusión de Artículo`;
         if (messages.length > 0 && messages[0].content.includes('about "')) {
             const match = messages[0].content.match(/about "(.*?)"/);
             if (match) title = match[1];
@@ -27,7 +27,7 @@ const AIChatHistoryView = ({ onBack }) => {
         return {
           id: articleId,
           messages,
-          lastMessage: lastMessage?.content || 'No messages',
+          lastMessage: lastMessage?.content || 'Sin mensajes',
           date: date,
           title: title
         };
@@ -41,7 +41,7 @@ const AIChatHistoryView = ({ onBack }) => {
 
   const deleteChat = (e, id) => {
     e.stopPropagation();
-    if (confirm('Delete this conversation?')) {
+    if (confirm('¿Eliminar esta conversación?')) {
       const history = JSON.parse(localStorage.getItem('ai_chat_history') || '{}');
       delete history[id];
       localStorage.setItem('ai_chat_history', JSON.stringify(history));
@@ -60,8 +60,8 @@ const AIChatHistoryView = ({ onBack }) => {
             <ArrowLeft className="w-5 h-5" />
           </button>
           <div>
-            <h1 className="text-3xl font-black tracking-tight">AI Conversations</h1>
-            <p className="text-white/50 text-sm">Your history with Nexus AI</p>
+            <h1 className="text-3xl font-black tracking-tight">Conversaciones IA</h1>
+            <p className="text-white/50 text-sm">Tu historial con Nexus IA</p>
           </div>
         </div>
       </div>
@@ -70,8 +70,8 @@ const AIChatHistoryView = ({ onBack }) => {
         {chats.length === 0 ? (
           <div className="text-center py-20 opacity-50">
             <MessageSquare className="w-16 h-16 mx-auto mb-4 text-white/20" />
-            <p className="text-xl font-bold">No conversations yet</p>
-            <p className="text-sm">Start chatting with AI on any news article!</p>
+            <p className="text-xl font-bold">Aún No Hay Conversaciones</p>
+            <p className="text-sm">¡Comienza a chatear con IA en cualquier artículo!</p>
           </div>
         ) : (
           chats.map((chat) => (
@@ -120,3 +120,5 @@ const AIChatHistoryView = ({ onBack }) => {
 };
 
 export default AIChatHistoryView;
+
+

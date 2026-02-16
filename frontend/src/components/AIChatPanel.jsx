@@ -12,20 +12,16 @@ const AIChatPanel = ({ article, onClose }) => {
 
   useEffect(() => {
     if (article) {
-      // Load chat history for this article
       const chatHistory = JSON.parse(localStorage.getItem('ai_chat_history') || '{}');
       const articleChats = chatHistory[article.id] || [];
       
       if (articleChats.length === 0) {
-        // Start with AI greeting
         const greeting = {
           role: 'assistant',
-          content: `Hi! I'm your AI assistant. I've analyzed this article about "${article.title}". What would you like to know?`,
+          content: `¡Hola! Soy tu asistente de IA. I've analyzed this article about "${article.title}". ¿Qué te gustaría saber?`,
           timestamp: new Date().toISOString()
         };
         setMessages([greeting]);
-        
-        // Auto-generate summary
         generateInitialSummary();
       } else {
         setMessages(articleChats);
@@ -47,16 +43,17 @@ const AIChatPanel = ({ article, onClose }) => {
       const summary = await APIService.summarize(article.title + ' ' + (article.summary || ''));
       const aiMessage = {
         role: 'assistant',
-        content: `Here's a quick summary:\n\n${summary}\n\nFeel free to ask me anything about this article!`,
+        content: `Aquí está un resumen rápido:\n\n${summary}\n\n¡Pregúntame lo que quieras sobre este artículo!`,
         timestamp: new Date().toISOString()
       };
-      setMessages(prev => [...prev, aiMessage]);
-      saveToHistory([...messages, aiMessage]);
+      const updatedMessages = [...messages, aiMessage];
+      setMessages(updatedMessages);
+      saveToHistory(updatedMessages);
     } catch (error) {
       console.error('Error generating summary:', error);
       const errorMessage = {
         role: 'assistant',
-        content: 'Sorry, I had trouble generating a summary. Please try asking me a question!',
+        content: 'Lo siento, tuve problemas generando el resumen. ¡Intenta preguntarme algo!',
         timestamp: new Date().toISOString()
       };
       setMessages(prev => [...prev, errorMessage]);
@@ -85,11 +82,18 @@ const AIChatPanel = ({ article, onClose }) => {
     setLoading(true);
 
     try {
-      // Send full conversation history to backend for true chat context
-      // Context: Title + Summary
-      const context = article ? `Article Title: ${article.title}. Article Summary: ${article.summary}` : "";
+      const context = article ? 
+        `We are discussing an article titled: "${article.title}".\n\nSummary: ${article.summary || 'No summary available'}.\n\nPlease answer based on this context.` 
+        : "";
       
-      const response = await APIService.chat(newMessages, input, context);
+      const history = newMessages
+        .filter(msg => msg.role !== 'user' || msg.content !== input)
+        .map(msg => ({
+          role: msg.role,
+          content: msg.content
+        }));
+
+      const response = await APIService.chat(history, input, context);
       
       const aiMessage = {
         role: 'assistant',
@@ -104,7 +108,7 @@ const AIChatPanel = ({ article, onClose }) => {
       console.error('Error getting AI response:', error);
       const errorMessage = {
         role: 'assistant',
-        content: 'Sorry, I encountered an error. Please try again!',
+        content: 'Lo siento, encontré un error. ¡Por favor intenta de nuevo!',
         timestamp: new Date().toISOString()
       };
       setMessages(prev => [...prev, errorMessage]);
@@ -113,7 +117,7 @@ const AIChatPanel = ({ article, onClose }) => {
   };
 
   const clearHistory = () => {
-    if (confirm('Clear this conversation?')) {
+    if (confirm('¿Limpiar esta conversación?')) {
       setMessages([]);
       const chatHistory = JSON.parse(localStorage.getItem('ai_chat_history') || '{}');
       delete chatHistory[article.id];
@@ -125,7 +129,6 @@ const AIChatPanel = ({ article, onClose }) => {
 
   return (
     <>
-      {/* Backdrop overlay */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -134,7 +137,6 @@ const AIChatPanel = ({ article, onClose }) => {
         className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[9998]"
       />
 
-      {/* Bottom sheet - Apple style */}
       <motion.div
         initial={{ y: '100%' }}
         animate={{ y: isMinimized ? 'calc(100% - 80px)' : 0 }}
@@ -143,20 +145,18 @@ const AIChatPanel = ({ article, onClose }) => {
         className="fixed bottom-0 left-0 right-0 max-h-[75vh] glass border-t-2 border-white/20 z-[9999] flex flex-col bg-nexus-dark/98 backdrop-blur-2xl rounded-t-[32px] shadow-2xl"
         style={{ boxShadow: '0 -10px 40px rgba(0,0,0,0.5)' }}
       >
-        {/* Drag indicator */}
         <div className="flex justify-center pt-3 pb-2">
           <div className="w-12 h-1.5 bg-white/30 rounded-full" />
         </div>
 
-        {/* Header */}
         <div className="flex items-center justify-between px-6 py-4 border-b border-white/10 bg-gradient-to-r from-accent-primary/10 to-accent-secondary/10">
           <div className="flex items-center gap-3">
             <div className="p-2.5 bg-accent-primary/20 rounded-2xl">
               <Sparkles className="w-5 h-5 text-accent-primary fill-current animate-pulse" />
             </div>
             <div>
-              <h3 className="font-black text-sm uppercase tracking-widest">AI Assistant</h3>
-              <p className="text-[10px] text-white/60">Powered by Gemini 1.5 Flash</p>
+              <h3 className="font-black text-sm uppercase tracking-widest">Asistente IA</h3>
+              <p className="text-[10px] text-white/60">Impulsado por Gemini 1.5 Flash</p>
             </div>
           </div>
           <div className="flex items-center gap-2">
@@ -183,7 +183,6 @@ const AIChatPanel = ({ article, onClose }) => {
 
         {!isMinimized && (
           <>
-            {/* Messages */}
             <div className="flex-1 overflow-y-auto p-6 space-y-4" style={{ maxHeight: 'calc(75vh - 180px)' }}>
               <AnimatePresence>
                 {messages.map((msg, idx) => (
@@ -194,7 +193,6 @@ const AIChatPanel = ({ article, onClose }) => {
                     transition={{ delay: idx * 0.05 }}
                     className={`flex gap-3 ${msg.role === 'user' ? 'flex-row-reverse' : ''}`}
                   >
-                    {/* Avatar */}
                     <div className={`flex-shrink-0 w-9 h-9 rounded-full flex items-center justify-center ${
                       msg.role === 'user' ? 'bg-accent-primary/20' : 'bg-accent-secondary/20'
                     }`}>
@@ -205,7 +203,6 @@ const AIChatPanel = ({ article, onClose }) => {
                       )}
                     </div>
 
-                    {/* Message bubble */}
                     <div className={`flex-1 max-w-[85%] ${msg.role === 'user' ? 'items-end' : ''}`}>
                       <div className={`px-5 py-3.5 rounded-3xl ${
                         msg.role === 'user' 
@@ -239,7 +236,6 @@ const AIChatPanel = ({ article, onClose }) => {
               </AnimatePresence>
             </div>
 
-            {/* Input */}
             <div className="p-6 border-t border-white/10 bg-nexus-dark/80">
               <div className="flex gap-3">
                 <input
@@ -247,7 +243,7 @@ const AIChatPanel = ({ article, onClose }) => {
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   onKeyDown={(e) => e.key === 'Enter' && handleSend()}
-                  placeholder="Ask me anything about this article..."
+                  placeholder="Pregúntame sobre este artículo..."
                   className="flex-1 px-5 py-4 glass rounded-3xl border border-white/10 bg-nexus-dark/50 text-white placeholder-white/30 focus:outline-none focus:border-accent-primary/50 transition-colors text-sm"
                   disabled={loading}
                 />
@@ -268,3 +264,4 @@ const AIChatPanel = ({ article, onClose }) => {
 };
 
 export default AIChatPanel;
+

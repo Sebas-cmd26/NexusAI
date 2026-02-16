@@ -49,7 +49,7 @@ const HeroSection = () => {
           className="inline-flex items-center gap-3 px-6 py-3 bg-accent-primary/10 border border-accent-primary/30 rounded-full mb-12 backdrop-blur-xl shadow-lg shadow-accent-primary/20"
         >
           <Sparkles className="w-5 h-5 text-accent-primary fill-current animate-pulse" />
-          <span className="text-sm font-black uppercase tracking-[0.3em] text-accent-primary">AI-Powered Intelligence Platform</span>
+          <span className="text-sm font-black uppercase tracking-[0.3em] text-accent-primary">AI-Powered Inteligencia Platform</span>
           <Zap className="w-5 h-5 text-accent-secondary fill-current" />
         </motion.div>
 
@@ -60,8 +60,8 @@ const HeroSection = () => {
           transition={{ delay: 0.5, duration: 1 }}
           className="text-7xl md:text-8xl lg:text-9xl font-display font-black tracking-tighter leading-[0.9] mb-8"
         >
-          <span className="block text-white">Intelligence</span>
-          <span className="block nexus-gradient-text mt-4">Unfolding.</span>
+          <span className="block text-white">Inteligencia</span>
+          <span className="block nexus-gradient-text mt-4">Desplegándose.</span>
         </motion.h1>
 
         {/* Subtitle - enhanced */}
@@ -71,9 +71,9 @@ const HeroSection = () => {
           transition={{ delay: 0.7, duration: 1 }}
           className="text-xl md:text-2xl lg:text-3xl text-white/70 max-w-4xl mx-auto leading-relaxed mb-12 font-light"
         >
-          Premium curated insights from the neural frontier.
+          Insights premium curados desde la frontera neural.
           <br />
-          <span className="text-accent-primary font-medium">AI-summarized</span>, <span className="text-accent-secondary font-medium">verified</span>, and <span className="text-accent-tertiary font-medium">prioritized</span> for you.
+          <span className="text-accent-primary font-medium">Resumido por IA</span>, <span className="text-accent-secondary font-medium">verificado</span>, and <span className="text-accent-tertiary font-medium">priorizado</span> para ti.
         </motion.p>
 
         {/* Stats row */}
@@ -84,9 +84,9 @@ const HeroSection = () => {
           className="flex flex-wrap justify-center gap-8 mb-12"
         >
           {[
-            { icon: TrendingUp, label: 'Real-time Updates', value: '24/7' },
-            { icon: Sparkles, label: 'AI Insights', value: '100%' },
-            { icon: Zap, label: 'Sources', value: '3+' }
+            { icon: TrendingUp, label: 'Actualizaciones en Tiempo Real', value: '24/7' },
+            { icon: Sparkles, label: 'Insights IA', value: '100%' },
+            { icon: Zap, label: 'Fuentes', value: '3+' }
           ].map((stat, idx) => (
             <div key={idx} className="flex items-center gap-3 px-6 py-3 glass rounded-2xl border border-white/10">
               <stat.icon className="w-5 h-5 text-accent-primary" />
@@ -117,7 +117,7 @@ const HeroSection = () => {
           className="absolute bottom-12 left-1/2 -translate-x-1/2"
         >
           <div className="flex flex-col items-center gap-2 text-white/40">
-            <span className="text-xs uppercase tracking-widest">Scroll to explore</span>
+            <span className="text-xs uppercase tracking-widest">Desplázate para explorar</span>
             <div className="w-6 h-10 border-2 border-white/20 rounded-full flex items-start justify-center p-2">
               <motion.div 
                 className="w-1.5 h-1.5 bg-accent-primary rounded-full"
@@ -133,3 +133,4 @@ const HeroSection = () => {
 };
 
 export default HeroSection;
+

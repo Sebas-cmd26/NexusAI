@@ -1,4 +1,4 @@
-﻿const API_BASE_URL = 'https://nexusai-production-f537.up.railway.app/api';
+﻿const API_BASE_URL = 'http://localhost:8000/api';
 
 /**
  * API Service Layer
@@ -16,8 +16,8 @@ class APIService {
       const url = (sector && sector !== 'General' && sector !== 'null')
         ? `${API_BASE_URL}/feed?sector=${encodeURIComponent(sector)}`
         : `${API_BASE_URL}/feed`;
-      
-      console.log('Fetching feed from:', url); 
+
+      console.log('Fetching feed from:', url);
       const response = await fetch(url);
       if (!response.ok) {
         throw new Error(`Failed to fetch feed: ${response.statusText}`);

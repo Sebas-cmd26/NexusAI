@@ -89,13 +89,13 @@ const App = () => {
           {searchQuery && (
             <div className="flex items-center justify-between px-4 py-2 bg-glass-light rounded-lg border border-white/5">
               <p className="text-sm text-white/60">
-                Search results for: <span className="text-accent-primary font-medium">{searchQuery}</span>
+                Resultados de búsqueda para: <span className="text-accent-primary font-medium">{searchQuery}</span>
               </p>
               <button 
                 onClick={resetFeed}
                 className="text-xs text-accent-primary hover:text-accent-primary/80 transition-colors"
               >
-                Clear search
+                Limpiar búsqueda
               </button>
             </div>
           )}
@@ -113,13 +113,13 @@ const App = () => {
               ))
             ) : (
               <div className="col-span-full text-center py-12">
-                <p className="text-white/40 text-lg">No news found</p>
+                <p className="text-white/40 text-lg">No se encontraron noticias</p>
                 {searchQuery && (
                   <button 
                     onClick={resetFeed}
                     className="mt-4 px-6 py-2 bg-accent-primary/10 hover:bg-accent-primary/20 text-accent-primary rounded-lg transition-colors"
                   >
-                    Reset Feed
+                    Restablecer Feed
                   </button>
                 )}
               </div>
@@ -142,3 +142,4 @@ const App = () => {
 };
 
 export default App;
+

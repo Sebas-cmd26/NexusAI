@@ -106,8 +106,8 @@ const AlertsView = () => {
             className="flex flex-col items-center justify-center py-20 text-white/40"
           >
             <Sparkles className="w-16 h-16 mb-4" />
-            <p className="text-lg font-medium">No alerts for this filter</p>
-            <p className="text-sm">Check back soon for breaking news</p>
+            <p className="text-lg font-medium">Sin Alertas para este filtro</p>
+            <p className="text-sm">Vuelve pronto para noticias de última hora</p>
           </motion.div>
         ) : (
           <div className="space-y-4">
@@ -135,7 +135,7 @@ const AlertsView = () => {
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-3 mb-3">
                           <span className={`px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest bg-gradient-to-r ${getImpactColor(alert.impact_level)} text-white`}>
-                            {alert.impact_level} Impact
+                            {alert.impact_level === "High" ? "Alto" : alert.impact_level === "Medium" ? "Medio" : "Bajo"} Impacto
                           </span>
                           <span className="px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest glass">
                             {alert.sector}
@@ -162,7 +162,7 @@ const AlertsView = () => {
                           rel="noopener noreferrer"
                           className="inline-flex items-center gap-2 px-4 py-2 glass hover:bg-white/10 rounded-xl text-sm font-black uppercase tracking-widest transition-all group/btn"
                         >
-                          Read Full Alert
+                          Leer Alerta Completa
                           <ExternalLink className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
                         </a>
                       </div>
@@ -179,3 +179,4 @@ const AlertsView = () => {
 };
 
 export default AlertsView;
+

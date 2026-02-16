@@ -103,7 +103,7 @@ const MagicSearch = ({ onSearch }) => {
             onFocus={() => setIsFocused(true)}
             onBlur={() => setTimeout(() => setIsFocused(false), 200)}
             onKeyDown={handleKeyDown}
-            placeholder="Search the neural frontier..."
+            placeholder="Busca en la frontera neural..."
             className="flex-1 bg-transparent border-none focus:ring-0 text-white placeholder-white/30 px-4 text-lg font-medium outline-none"
           />
 
@@ -158,7 +158,7 @@ const MagicSearch = ({ onSearch }) => {
               <div className="p-4 border-b border-white/5">
                 <div className="flex items-center gap-2 px-4 mb-3">
                   <Clock className="w-4 h-4 text-white/40" />
-                  <p className="text-[10px] font-black uppercase tracking-[0.2em] text-white/40">Recent Searches</p>
+                  <p className="text-[10px] font-black uppercase tracking-[0.2em] text-white/40">Búsquedas Recientes</p>
                 </div>
                 <div className="space-y-1">
                   {searchHistory.map((item, i) => (
@@ -179,7 +179,7 @@ const MagicSearch = ({ onSearch }) => {
             <div className="p-4">
               <div className="flex items-center gap-2 px-4 mb-3">
                 <TrendingUp className="w-4 h-4 text-accent-primary" />
-                <p className="text-[10px] font-black uppercase tracking-[0.2em] text-white/40">Trending Searches</p>
+                <p className="text-[10px] font-black uppercase tracking-[0.2em] text-white/40">Búsquedas Populares</p>
               </div>
               <div className="space-y-1">
                 {trendingSuggestions.map((s, i) => (
@@ -202,3 +202,4 @@ const MagicSearch = ({ onSearch }) => {
 };
 
 export default MagicSearch;
+

@@ -3,8 +3,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-
-const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' }); // User asked for gemini-pro but flash is faster/better for summary. Using available.
+const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
 
 export const summarizeWithGemini = async (text) => {
   try {
@@ -20,24 +19,29 @@ export const summarizeWithGemini = async (text) => {
 
 export const chatWithGemini = async (history, message, context = "") => {
   try {
+    const formattedHistory = history.map(msg => ({
+      role: msg.role === 'assistant' ? 'model' : 'user',
+      parts: [{ text: msg.content }]
+    }));
+
     const chat = model.startChat({
-      history: history.map(h => ({
-        role: h.role === 'assistant' ? 'model' : 'user',
-        parts: [{ text: h.content }]
-      })),
+      history: formattedHistory,
       generationConfig: {
-        maxOutputTokens: 500,
+        maxOutputTokens: 1000,
+        temperature: 0.7,
       },
     });
 
-    const systemContext = context ? `Context: ${context}\n\n` : "";
-    const fullMessage = `${systemContext}${message}`;
+    let fullMessage = message;
+    if (context) {
+      fullMessage = `Context about the article we're discussing:\n${context}\n\nUser question: ${message}`;
+    }
 
     const result = await chat.sendMessage(fullMessage);
     const response = await result.response;
     return response.text();
   } catch (error) {
     console.error('Error in chat:', error);
-    return "I am currently unable to process your request.";
+    throw new Error("I am currently unable to process your request. Please try again.");
   }
 };
