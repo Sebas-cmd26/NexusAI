@@ -7,10 +7,23 @@ const NewsCard = ({ news, onClick }) => {
     'Engineering': 'from-blue-500 to-indigo-600',
     'Health': 'from-emerald-500 to-teal-600',
     'Finance': 'from-amber-500 to-orange-600',
-    'Society': 'from-purple-500 to-pink-600',
+    'Education': 'from-purple-500 to-pink-600',
+    'Legal': 'from-red-500 to-rose-600',
+    'General': 'from-gray-500 to-gray-600',
+  };
+
+  // Traducción de sectores
+  const sectorTranslations = {
+    'Engineering': 'INGENIERÍA',
+    'Health': 'SALUD',
+    'Finance': 'FINANZAS',
+    'Education': 'EDUCACIÓN',
+    'Legal': 'LEGAL',
+    'General': 'GENERAL'
   };
 
   const colorClass = sectorColors[news.sector] || 'from-gray-500 to-gray-600';
+  const translatedSector = sectorTranslations[news.sector] || news.sector;
 
   return (
     <motion.div
@@ -28,7 +41,7 @@ const NewsCard = ({ news, onClick }) => {
           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
         />
         <div className={`absolute top-4 left-4 z-20 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest bg-gradient-to-r ${colorClass} shadow-lg shadow-black/20`}>
-          {news.sector}
+          {translatedSector}
         </div>
       </div>
 
@@ -55,8 +68,10 @@ const NewsCard = ({ news, onClick }) => {
           
           <div className="flex justify-between items-center mt-6 pt-4 border-t border-white/5">
              <div className="flex items-center gap-2">
-               <span className={`w-2 h-2 rounded-full ${news.impact_level === 'High' ? 'bg-red-500 animate-pulse' : 'bg-green-500'}`} />
-               <span className="text-[10px] font-black uppercase tracking-widest text-white/30">Impacto {news.impact_level === 'High' ? 'Alto' : news.impact_level === 'Medium' ? 'Medio' : 'Bajo'}</span>
+               <span className={`w-2 h-2 rounded-full ${news.impact_level === 'High' ? 'bg-red-500 animate-pulse' : news.impact_level === 'Medium' ? 'bg-yellow-500' : 'bg-green-500'}`} />
+               <span className="text-[10px] font-black uppercase tracking-widest text-white/30">
+                 {news.impact_level === 'High' ? 'Alto' : news.impact_level === 'Medium' ? 'Medio' : 'Bajo'} Impacto
+               </span>
              </div>
              <ArrowUpRight className="w-5 h-5 text-white/20 group-hover:text-accent-primary transition-all group-hover:translate-x-1 group-hover:-translate-y-1" />
           </div>

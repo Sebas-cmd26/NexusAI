@@ -3,6 +3,7 @@ import * as Dialog from '@radix-ui/react-dialog';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, ExternalLink, Share2, Sparkles, Bookmark } from 'lucide-react';
 import AIChatPanel from './AIChatPanel';
+import { translateSector } from '../utils/translations';
 import APIService from '../services/api';
 
 const NewsDrawer = ({ news, onClose }) => {
@@ -107,7 +108,7 @@ const NewsDrawer = ({ news, onClose }) => {
                   <div className="px-8 pb-12 -mt-12 relative z-20">
                     <div className="inline-flex items-center gap-2 px-4 py-1.5 glass rounded-full border border-white/10 mb-6">
                       <span className="w-2 h-2 rounded-full bg-accent-primary animate-pulse" />
-                      <span className="text-[10px] font-black uppercase tracking-widest">{news.sector}</span>
+                      <span className="text-[10px] font-black uppercase tracking-widest">{translateSector(news.sector)}</span>
                     </div>
 
                     <Dialog.Title className="text-4xl md:text-5xl font-display font-black leading-[1.1] tracking-tighter mb-8">
@@ -204,4 +205,5 @@ const NewsDrawer = ({ news, onClose }) => {
 };
 
 export default NewsDrawer;
+
 

@@ -45,3 +45,17 @@ export const chatWithGemini = async (history, message, context = "") => {
     throw new Error("I am currently unable to process your request. Please try again.");
   }
 };
+
+// New translation function
+export const translateToSpanish = async (text) => {
+  try {
+    const prompt = `Translate the following text to Spanish. Keep it natural and professional. Only return the translation, nothing else:\n\n${text}`;
+    const result = await model.generateContent(prompt);
+    const response = await result.response;
+    return response.text().trim();
+  } catch (error) {
+    console.error('Error translating text:', error);
+    // Return original text if translation fails
+    return text;
+  }
+};

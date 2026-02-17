@@ -1,6 +1,7 @@
 ﻿import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { AlertTriangle, TrendingUp, Zap, Clock, ExternalLink, Sparkles } from 'lucide-react';
+import { translateSector } from '../utils/translations';
 import APIService from '../services/api';
 
 const AlertsView = () => {
@@ -138,7 +139,7 @@ const AlertsView = () => {
                             {alert.impact_level === "High" ? "Alto" : alert.impact_level === "Medium" ? "Medio" : "Bajo"} Impacto
                           </span>
                           <span className="px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest glass">
-                            {alert.sector}
+                            {translateSector(alert.sector)}
                           </span>
                           <div className="flex items-center gap-1 text-white/40 text-xs ml-auto">
                             <Clock className="w-3 h-3" />
@@ -179,4 +180,5 @@ const AlertsView = () => {
 };
 
 export default AlertsView;
+
 

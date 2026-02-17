@@ -3,6 +3,7 @@ dotenv.config();
 
 export const fetchAINews = async (sector = null) => {
   try {
+    // Expanded AI-focused keywords to ensure only AI news
     const keywords = [
       'artificial intelligence',
       'machine learning',
@@ -11,13 +12,25 @@ export const fetchAINews = async (sector = null) => {
       'Claude',
       'Gemini',
       'LLM',
-      'deep learning'
+      'deep learning',
+      'neural network',
+      'AI model',
+      'generative AI',
+      'transformer',
+      'GPT',
+      'AI technology',
+      'computer vision',
+      'natural language processing',
+      'NLP',
+      'AI system',
+      'AI algorithm',
+      'AI research'
     ];
 
     const query = keywords.join(' OR ');
     const url = `https://newsapi.org/v2/everything?q=${encodeURIComponent(query)}&language=en&sortBy=publishedAt&pageSize=50&apiKey=${process.env.NEWS_API_KEY}`;
 
-    console.log('Fetching from:', url);
+    console.log('Fetching AI-focused news from NewsAPI...');
     const response = await fetch(url);
     const data = await response.json();
 
@@ -35,7 +48,9 @@ export const fetchAINews = async (sector = null) => {
         article.description && 
         article.url &&
         article.title !== '[Removed]' &&
-        article.urlToImage
+        article.urlToImage &&
+        // Additional AI validation filter
+        isAIRelated(article.title + ' ' + article.description)
       )
       .forEach(article => {
         const id = generateId(article.url);
@@ -60,7 +75,7 @@ export const fetchAINews = async (sector = null) => {
 
     const articles = Array.from(articlesMap.values());
     
-    console.log(`Fetched ${articles.length} unique articles from NewsAPI`);
+    console.log(`Fetched ${articles.length} unique AI-focused articles from NewsAPI`);
     return articles;
 
   } catch (error) {
@@ -68,6 +83,20 @@ export const fetchAINews = async (sector = null) => {
     return [];
   }
 };
+
+// Validar que el artículo sea realmente sobre IA
+function isAIRelated(text) {
+  const lowerText = text.toLowerCase();
+  const aiKeywords = [
+    'ai', 'artificial intelligence', 'machine learning', 'ml',
+    'deep learning', 'neural', 'chatgpt', 'gpt', 'llm',
+    'openai', 'claude', 'gemini', 'transformer', 'generative',
+    'computer vision', 'nlp', 'natural language'
+  ];
+  
+  // El artículo debe contener al menos uno de estos keywords
+  return aiKeywords.some(keyword => lowerText.includes(keyword));
+}
 
 // Función para generar ID único
 function generateId(url) {
@@ -80,23 +109,28 @@ function generateId(url) {
   return `news_${Math.abs(hash)}`;
 }
 
-// Categorizar por sector
+// Categorizar por sector (enfocado en IA en cada sector)
 function categorizeSector(text) {
   const lowerText = text.toLowerCase();
   
-  if (/(chip|gpu|hardware|semiconductor|nvidia|computing|processor)/i.test(lowerText)) {
+  // AI in Engineering/Tech
+  if (/(chip|gpu|hardware|semiconductor|nvidia|computing|processor|tech|software|robot)/i.test(lowerText)) {
     return 'Engineering';
   }
-  if (/(health|medical|diagnosis|patient|healthcare|radiology|disease)/i.test(lowerText)) {
+  // AI in Health
+  if (/(health|medical|diagnosis|patient|healthcare|radiology|disease|hospital|clinical)/i.test(lowerText)) {
     return 'Health';
   }
-  if (/(finance|trading|bank|crypto|stock|market|investment)/i.test(lowerText)) {
+  // AI in Finance
+  if (/(finance|trading|bank|crypto|stock|market|investment|fintech|payment)/i.test(lowerText)) {
     return 'Finance';
   }
-  if (/(education|learning|school|university|student|teacher)/i.test(lowerText)) {
+  // AI in Education
+  if (/(education|learning|school|university|student|teacher|training|course)/i.test(lowerText)) {
     return 'Education';
   }
-  if (/(law|legal|regulation|policy|government|court)/i.test(lowerText)) {
+  // AI in Legal/Government
+  if (/(law|legal|regulation|policy|government|court|compliance|ethics)/i.test(lowerText)) {
     return 'Legal';
   }
   
